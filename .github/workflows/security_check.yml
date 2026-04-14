@@ -1,0 +1,54 @@
+name: Static Security Analysis
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  security-scan:
+    name: Run Static Code Security Analyzer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install bandit
+
+      - name: Run Static Code Security Analyzer
+        run: |
+          echo "=================================================="
+          echo "  CMPE 279 — Static Code Security Analyzer"
+          echo "  Scanning: samples/"
+          echo "=================================================="
+          python analyzer.py samples/ --output ci_report.txt
+          echo ""
+          echo "Full report:"
+          cat ci_report.txt
+
+      - name: Check for HIGH severity findings
+        run: |
+          if grep -q "HIGH" ci_report.txt; then
+            echo ""
+            echo "❌ FAILED: HIGH severity vulnerabilities detected."
+            echo "   Review the findings above and fix before merging."
+            exit 1
+          else
+            echo ""
+            echo "✅ PASSED: No HIGH severity vulnerabilities detected."
+          fi
+
+      - name: Upload security report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: ci_report.txt
