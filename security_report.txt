@@ -1,0 +1,127 @@
+======================================================================
+  STATIC CODE SECURITY ANALYZER — REPORT
+  Generated: 2026-04-14 16:42:13
+======================================================================
+  Files scanned : 3
+  Total findings: 23
+  HIGH    : 10
+  MEDIUM  : 7
+  LOW     : 6
+======================================================================
+
+[1] HIGH  |  vuln_auth.py  |  Line 8  |  CUSTOM-SECRET
+    Description : Hardcoded secret detected in variable 'API_KEY'
+    Fix         : Load secrets from environment variables using os.environ.get() or a secrets manager
+    Source      : custom
+
+[2] HIGH  |  vuln_input.py  |  Line 10  |  B-B605
+    Description : Starting a process with a shell, possible injection detected, security issue.
+    Fix         : https://cwe.mitre.org/data/definitions/78.html
+    Source      : bandit
+
+[3] HIGH  |  vuln_input.py  |  Line 10  |  CUSTOM-INPUT
+    Description : os.system() with potentially unsanitized input — shell injection risk
+    Fix         : Use subprocess.run() with a list of arguments and shell=False
+    Source      : custom
+
+[4] HIGH  |  vuln_auth.py  |  Line 11  |  CUSTOM-SECRET
+    Description : Hardcoded secret detected in variable 'DB_PASSWORD'
+    Fix         : Load secrets from environment variables using os.environ.get() or a secrets manager
+    Source      : custom
+
+[5] HIGH  |  vuln_auth.py  |  Line 14  |  CUSTOM-SECRET
+    Description : Hardcoded secret detected in variable 'SECRET_TOKEN'
+    Fix         : Load secrets from environment variables using os.environ.get() or a secrets manager
+    Source      : custom
+
+[6] HIGH  |  vuln_input.py  |  Line 14  |  B-B602
+    Description : subprocess call with shell=True identified, security issue.
+    Fix         : https://cwe.mitre.org/data/definitions/78.html
+    Source      : bandit
+
+[7] HIGH  |  vuln_input.py  |  Line 14  |  CUSTOM-INPUT
+    Description : subprocess called with shell=True — exposes system to shell injection
+    Fix         : Pass arguments as a list and set shell=False (the default)
+    Source      : custom
+
+[8] HIGH  |  vuln_input.py  |  Line 19  |  CUSTOM-INPUT
+    Description : Unsafe deserialization with pickle.load() — can execute arbitrary code on load
+    Fix         : Use json or a schema-validated format instead of pickle for untrusted data
+    Source      : custom
+
+[9] HIGH  |  vuln_auth.py  |  Line 22  |  B-B324
+    Description : Use of weak MD5 hash for security. Consider usedforsecurity=False
+    Fix         : https://cwe.mitre.org/data/definitions/327.html
+    Source      : bandit
+
+[10] HIGH  |  vuln_input.py  |  Line 28  |  CUSTOM-INPUT
+    Description : Use of eval() on potentially unsanitized input — allows arbitrary code execution
+    Fix         : Replace eval() with a safe parser (e.g., ast.literal_eval for data, or explicit logic)
+    Source      : custom
+
+[11] MEDIUM  |  vuln_db.py  |  Line 10  |  B-B608
+    Description : Possible SQL injection vector through string-based query construction.
+    Fix         : https://cwe.mitre.org/data/definitions/89.html
+    Source      : bandit
+
+[12] MEDIUM  |  vuln_db.py  |  Line 18  |  B-B608
+    Description : Possible SQL injection vector through string-based query construction.
+    Fix         : https://cwe.mitre.org/data/definitions/89.html
+    Source      : bandit
+
+[13] MEDIUM  |  vuln_input.py  |  Line 19  |  B-B301
+    Description : Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.
+    Fix         : https://cwe.mitre.org/data/definitions/502.html
+    Source      : bandit
+
+[14] MEDIUM  |  vuln_auth.py  |  Line 22  |  CUSTOM-SECRET
+    Description : Weak hashing algorithm 'md5' used — not suitable for passwords
+    Fix         : Use bcrypt, argon2, or hashlib.pbkdf2_hmac for password hashing
+    Source      : custom
+
+[15] MEDIUM  |  vuln_db.py  |  Line 26  |  B-B608
+    Description : Possible SQL injection vector through string-based query construction.
+    Fix         : https://cwe.mitre.org/data/definitions/89.html
+    Source      : bandit
+
+[16] MEDIUM  |  vuln_auth.py  |  Line 28  |  B-B113
+    Description : Call to requests without timeout
+    Fix         : https://cwe.mitre.org/data/definitions/400.html
+    Source      : bandit
+
+[17] MEDIUM  |  vuln_input.py  |  Line 28  |  B-B307
+    Description : Use of possibly insecure function - consider using safer ast.literal_eval.
+    Fix         : https://cwe.mitre.org/data/definitions/78.html
+    Source      : bandit
+
+[18] LOW  |  vuln_input.py  |  Line 5  |  B-B404
+    Description : Consider possible security implications associated with the subprocess module.
+    Fix         : https://cwe.mitre.org/data/definitions/78.html
+    Source      : bandit
+
+[19] LOW  |  vuln_input.py  |  Line 6  |  B-B403
+    Description : Consider possible security implications associated with pickle module.
+    Fix         : https://cwe.mitre.org/data/definitions/502.html
+    Source      : bandit
+
+[20] LOW  |  vuln_auth.py  |  Line 11  |  B-B105
+    Description : Possible hardcoded password: 'admin1234'
+    Fix         : https://cwe.mitre.org/data/definitions/259.html
+    Source      : bandit
+
+[21] LOW  |  vuln_auth.py  |  Line 14  |  B-B105
+    Description : Possible hardcoded password: 'hardcoded_jwt_secret_do_not_use'
+    Fix         : https://cwe.mitre.org/data/definitions/259.html
+    Source      : bandit
+
+[22] LOW  |  vuln_auth.py  |  Line 18  |  B-B105
+    Description : Possible hardcoded password: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+    Fix         : https://cwe.mitre.org/data/definitions/259.html
+    Source      : bandit
+
+[23] LOW  |  vuln_input.py  |  Line 35  |  B-B603
+    Description : subprocess call - check for execution of untrusted input.
+    Fix         : https://cwe.mitre.org/data/definitions/78.html
+    Source      : bandit
+
+======================================================================
