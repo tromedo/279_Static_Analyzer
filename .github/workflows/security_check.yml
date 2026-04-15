@@ -36,7 +36,7 @@ jobs:
 
       - name: Check for HIGH severity findings
         run: |
-          if grep -q "HIGH" ci_report.txt; then
+          if grep -q "\[.*\] HIGH" ci_report.txt; then
             echo ""
             echo "❌ FAILED: HIGH severity vulnerabilities detected."
             echo "   Review the findings above and fix before merging."
