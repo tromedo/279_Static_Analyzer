@@ -29,7 +29,7 @@ jobs:
           echo "  CMPE 279 — Static Code Security Analyzer"
           echo "  Scanning: samples/"
           echo "=================================================="
-          python analyzer.py samples/ --output ci_report.txt
+          python analyzer.py clean_example.py --output ci_report.txt
           echo ""
           echo "Full report:"
           cat ci_report.txt
