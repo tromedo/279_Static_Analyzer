@@ -36,3 +36,4 @@ def safe_get_user(username):
     return cursor.fetchone()
 # demo run
 # demo run
+# demo run
